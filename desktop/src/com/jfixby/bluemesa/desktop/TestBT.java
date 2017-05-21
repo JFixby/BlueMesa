@@ -29,7 +29,7 @@ public class TestBT {
 		final GasSensorMessageReaderSpecs specs = new GasSensorMessageReaderSpecs();
 		specs.url = (url);
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
-		reader.open();
+		reader.open(new DekstopBTConnectionOpener());
 
 		while (true) {
 			final GasSensorMessage message = reader.read();

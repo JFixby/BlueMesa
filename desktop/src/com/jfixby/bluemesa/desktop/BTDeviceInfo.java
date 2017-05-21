@@ -1,5 +1,5 @@
 
-package com.jfixby.bluemesa;
+package com.jfixby.bluemesa.desktop;
 
 import javax.bluetooth.DeviceClass;
 import javax.bluetooth.RemoteDevice;

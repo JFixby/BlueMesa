@@ -4,8 +4,6 @@ package com.jfixby.bluemesa;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import javax.microedition.io.Connector;
-
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
@@ -20,9 +18,10 @@ public class GasSensorMessageReader {
 		this.url = specs.url;
 	}
 
-	public void open () throws IOException {
+	public void open (final BTConnectionOpener opener) throws IOException {
 		Debug.checkTrue("is closed", this.is == null);
-		this.is = Connector.openDataInputStream(this.url);
+		this.is = opener.open(this.url);
+		;
 
 	}
 
