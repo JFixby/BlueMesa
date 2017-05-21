@@ -7,7 +7,6 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.log.L;
 
 public class GasSensorMessageReader {
 
@@ -67,7 +66,7 @@ public class GasSensorMessageReader {
 			data[i] = bytes.getElementAt(i);
 		}
 		msg.data = data;
-		L.d("data read " + b.length(), b);
+// L.d("data read " + b.length(), b);
 // L.d(" bytes", data);
 		return msg;
 

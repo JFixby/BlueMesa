@@ -36,7 +36,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidCompon
 						AndroidLauncher.this.test();
 					} catch (final IOException e) {
 						e.printStackTrace();
-						Sys.sleep(1000);
+						Sys.sleep(10000);
 					}
 				}
 
