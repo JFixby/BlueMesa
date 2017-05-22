@@ -90,7 +90,7 @@ public class GasSensorMessageReader {
 
 	public DataST decode (final byte[] bytes) throws GasSensorMessageReaderException {
 		final DataST received_data = new DataST();
-		int _cksm = 0;
+		long _cksm = 0;
 		int i;
 
 		// 1. basic array check
@@ -105,7 +105,7 @@ public class GasSensorMessageReader {
 		if (bytes.length != 64) {
 			throw new GasSensorMessageReaderException("array length failed:" + bytes.length);
 		} // array length failed
-		if ((_cksm & 0xFF) != bytes[1]) {
+		if ((byte)(_cksm & 0xFF) != bytes[1]) {
 			throw new GasSensorMessageReaderException("checksum failed:" + _cksm);
 		} // checksum failed
 
