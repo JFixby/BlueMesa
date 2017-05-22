@@ -34,7 +34,7 @@ public class GasSensorMessageReader {
 
 	public GasSensorMessage read () throws IOException, GasSensorMessageReaderException {
 		final GasSensorMessage msg = new GasSensorMessage();
-		msg.deviceID = this.deviceID;
+		msg.deviceID = this.deviceID.toUpperCase();
 		String b = "";
 		boolean valveOpen = false;
 		final List<Byte> bytes = Collections.newList();
