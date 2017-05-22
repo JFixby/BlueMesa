@@ -45,7 +45,7 @@ public class MessageTransport {
 		sendParams.setQueueURL(this.queuURL);
 
 		final String messageText = Json.serializeToString(message).toString();
-		L.d(messageText);
+// L.d(messageText);
 		sendParams.setBody(messageText);
 		this.client.sendMessage(sendParams);
 	}
