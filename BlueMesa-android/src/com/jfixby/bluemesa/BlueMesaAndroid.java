@@ -44,13 +44,13 @@ public class BlueMesaAndroid {
 
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
 		final boolean success = reader.open(new AndroidBTConnectionOpener(this.app));
-		ep.append("No paired device detected");
 
 		while (true) {
 			if (!success) {
 				ep.append("No paired device detected");
-				reader.open(new AndroidBTConnectionOpener(this.app));
-				continue;
+				Sys.sleep(100000);
+				Sys.exit();
+				break;
 			}
 			GasSensorMessage message;
 			try {

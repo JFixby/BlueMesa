@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.IntegerMath;
 import com.jfixby.scarabei.api.sys.Sys;
 
@@ -23,6 +24,7 @@ public class GasSensorMessageReader {
 		Debug.checkTrue("is closed", this.is == null);
 		this.is = opener.open();
 		this.deviceID = opener.getDeviceID();
+		L.d("deviceID", this.deviceID);
 		return this.is != null;
 
 	}

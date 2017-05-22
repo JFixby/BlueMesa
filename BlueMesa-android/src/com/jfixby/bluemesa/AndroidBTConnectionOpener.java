@@ -34,6 +34,7 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 		final Set<AndroidBluetoothDevice> pairedDevices = (this.adaptor.getBondedDevices());
 // pairedDevices.print("pairedDevices");
 		if (pairedDevices.size() == 0) {
+			L.d("Failed to find devices");
 			return null;
 		}
 
