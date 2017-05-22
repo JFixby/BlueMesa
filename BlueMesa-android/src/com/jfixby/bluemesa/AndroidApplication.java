@@ -5,6 +5,6 @@ public interface AndroidApplication {
 
 	void requestBT ();
 
-	MesaBluetoothAdapter getAdaptor ();
+	AndroidBluetoothAdapter getAdaptor ();
 
 }

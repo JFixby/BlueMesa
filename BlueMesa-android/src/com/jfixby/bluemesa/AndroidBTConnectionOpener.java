@@ -21,7 +21,7 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 
 	}
 
-	private final MesaBluetoothAdapter adaptor;
+	private final AndroidBluetoothAdapter adaptor;
 
 	@Override
 	public DataInputStream open (final String url) throws IOException {
@@ -31,16 +31,16 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 			this.app.requestBT();
 		}
 
-		final Set<BluetoothDevice> pairedDevices = (this.adaptor.getBondedDevices());
+		final Set<AndroidBluetoothDevice> pairedDevices = (this.adaptor.getBondedDevices());
 // pairedDevices.print("pairedDevices");
 		if (pairedDevices.size() == 0) {
 			return null;
 		}
 
-		final BluetoothDevice device = pairedDevices.getLast();
+		final AndroidBluetoothDevice device = pairedDevices.getLast();
 // L.d("device detected", device);
 
-		final List<ParcelUuid> uids = Collections.newList(device.getUuids());
+		final List<AndroidParcelUuid> uids = Collections.newList(device.getUuids());
 // uids.print("uids");
 
 		final UUID uuid = UUID.fromString(uids.getLast().toString());
@@ -49,7 +49,7 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 		// Sys.exit();
 // device.createInsecureRfcommSocketToServiceRecord(uuid)
 
-		final BluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
+		final AndroidBluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
 		socket.connect();
 // L.d("socket", socket);
 // device.

@@ -3,7 +3,7 @@ package com.jfixby.bluemesa;
 
 import java.io.InputStream;
 
-public interface BluetoothSocket {
+public interface AndroidBluetoothSocket {
 
 	void connect ();
 
