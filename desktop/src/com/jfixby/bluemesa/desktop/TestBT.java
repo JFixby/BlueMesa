@@ -5,13 +5,14 @@ import java.io.IOException;
 
 import com.jfixby.bluemesa.GasSensorMessage;
 import com.jfixby.bluemesa.GasSensorMessageReader;
+import com.jfixby.bluemesa.GasSensorMessageReaderException;
 import com.jfixby.bluemesa.GasSensorMessageReaderSpecs;
 import com.jfixby.bluemesa.MessageTransport;
 import com.jfixby.bluemesa.MessageTransportSpecs;
 import com.jfixby.scarabei.amazon.aws.RedAWS;
 import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.json.Json;
-import com.jfixby.scarabei.api.sys.Sys;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.aws.api.AWS;
 import com.jfixby.scarabei.gson.GoogleGson;
 
@@ -43,11 +44,15 @@ public class TestBT {
 		reader.open(new DekstopBTConnectionOpener());
 
 		while (true) {
-			final GasSensorMessage message = reader.read();
-			message.print();
-			transport.send(message);
+			GasSensorMessage message;
+			try {
+				message = reader.read();
+				message.print();
+				transport.send(message);
+			} catch (final GasSensorMessageReaderException e) {
+				L.d(e.toString());
+			}
 
-			Sys.exit();
 		}
 // is.close();
 // final BluetoothAdapter bta = new BluetoothAdapter();

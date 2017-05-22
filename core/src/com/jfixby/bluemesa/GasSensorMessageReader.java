@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
+import com.jfixby.scarabei.api.math.IntegerMath;
 
 public class GasSensorMessageReader {
 
@@ -29,7 +30,7 @@ public class GasSensorMessageReader {
 	public static String STRING_HUITA_IN = "~#####>";
 	public static String STRING_HUITA_OUT = "<##\n";
 
-	public GasSensorMessage read () throws IOException {
+	public GasSensorMessage read () throws IOException, GasSensorMessageReaderException {
 		final GasSensorMessage msg = new GasSensorMessage();
 		String b = "";
 		boolean valveOpen = false;
@@ -65,11 +66,81 @@ public class GasSensorMessageReader {
 		for (int i = 0; i < bytes.size(); i++) {
 			data[i] = bytes.getElementAt(i);
 		}
-		msg.data = data;
+
+		msg.data = this.decode(data);
+
 // L.d("data read " + b.length(), b);
 // L.d(" bytes", data);
 		return msg;
 
+	}
+
+	public float formatResistance (final byte _A, final byte _B) {
+		int _temp = 0;
+		final float _r = 0;
+		int e = 0;
+		int b = 0;
+
+		_temp = ((_A) << 8) + _B;
+		b = _temp / 10; // get number rounded down;
+		e = _temp - b * 10;
+
+		return b / 1000f * IntegerMath.power(10, e);
+	}
+
+	public DataST decode (final byte[] bytes) throws GasSensorMessageReaderException {
+		final DataST received_data = new DataST();
+		int _cksm = 0;
+		int i;
+
+		// 1. basic array check
+		for (i = 0; i < bytes.length; i++) {
+			_cksm += bytes[i];
+		}
+		_cksm -= bytes[1];
+
+		if ((bytes[0] < 1) || (bytes[0] > 15)) {
+			throw new GasSensorMessageReaderException("wrong hardware id byte:" + bytes[0]);
+		} // wrong hardware id byte
+		if (bytes.length != 64) {
+			throw new GasSensorMessageReaderException("array length failed:" + bytes.length);
+		} // array length failed
+		if ((_cksm & 0xFF) != bytes[1]) {
+			throw new GasSensorMessageReaderException("checksum failed:" + _cksm);
+		} // checksum failed
+
+		// 2.getting general data
+		received_data.temp_board = bytes[2] * 3.0f;
+		received_data.temp = bytes[6] * 3.0f;
+		received_data.RH = bytes[7] * 2.5f;
+
+		// 3. heater state
+		for (i = 0; i < 8; i++) {
+			if (((1 * bytes[3] >> i) & 0x01) != 0) {
+				received_data.heater_state[i] = 50;
+			} else if (((bytes[5] >> i) & 1) != 0) {
+				received_data.heater_state[i] = 150;
+			} else if (((bytes[4] >> i) & 1) != 0) {
+				received_data.heater_state[i] = 100;
+			} else {
+				received_data.heater_state[i] = 0;
+			}
+		}
+
+		// 4. digipot settings
+		for (i = 0; i < 8; i++) {
+			received_data.heater_setting[i] = bytes[8 + i];
+			received_data.reference_setting[i] = bytes[16 + i];
+		}
+
+		// 4. resistances
+		for (i = 0; i < 8; i++) {
+
+			received_data.R_x[i] = this.formatResistance(bytes[56 + i], bytes[48 + i]);
+			received_data.H_r[i] = ((bytes[40 + i] << 8) + bytes[32 + i]) / 100f;
+			received_data.V_h[i] = (bytes[24 + i] / 16f);
+		}
+		return received_data;
 	}
 
 	public static String removeNonDigits (final String str) {

@@ -56,8 +56,13 @@ public class AndroidLauncher extends AndroidApplication implements AndroidCompon
 		reader.open(new AndroidBTConnectionOpener(this, DEVICE_ID));
 
 		while (true) {
-			final GasSensorMessage message = reader.read();
-			message.print();
+			GasSensorMessage message;
+			try {
+				message = reader.read();
+				message.print();
+			} catch (final GasSensorMessageReaderException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

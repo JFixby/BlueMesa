@@ -1,9 +1,6 @@
 
 package com.jfixby.bluemesa;
 
-import java.util.HashMap;
-
-import com.amazonaws.util.Base64;
 import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
@@ -47,10 +44,7 @@ public class MessageTransport {
 		final SQSSendMessageParams sendParams = sqs.newSendMessageParams();
 		sendParams.setQueueURL(this.queuURL);
 
-		final HashMap<String, String> msg = new HashMap<String, String>();
-		msg.put("global-counter", message.globalCounter + "");
-		msg.put("data-block-64-Base64", Base64.encodeAsString(message.data));
-		final String messageText = Json.serializeToString(msg).toString();
+		final String messageText = Json.serializeToString(message).toString();
 		L.d(messageText);
 		sendParams.setBody(messageText);
 		this.client.sendMessage(sendParams);
