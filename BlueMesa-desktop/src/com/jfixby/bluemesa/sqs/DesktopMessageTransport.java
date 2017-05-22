@@ -28,8 +28,9 @@ public class DesktopMessageTransport implements MessageTransport {
 	private final SQSClient client;
 	private final String queuURL;
 	private final String deviceID;
+	private final MessagesConsumer ep;
 
-	public DesktopMessageTransport (final MessageTransportSpecs t_specs) {
+	public DesktopMessageTransport (final MessageTransportSpecs t_specs, final MessagesConsumer ep) {
 
 		final SQS sqs = AWS.getSQS();
 		final SQSClienSpecs sqsspecs = sqs.newSQSClienSpecs();
@@ -47,6 +48,7 @@ public class DesktopMessageTransport implements MessageTransport {
 
 		final Collection<String> currentQueues = this.client.listAllSQSUrls();
 		currentQueues.print("current queues");
+		this.ep = ep;
 
 	}
 
@@ -73,6 +75,7 @@ public class DesktopMessageTransport implements MessageTransport {
 // L.d(messageText);
 		sendParams.setBody(messageText);
 		this.client.sendMessage(sendParams);
+		this.ep.append(messageText);
 	}
 
 	public List<GasSensorMessage> receive () {

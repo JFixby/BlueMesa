@@ -36,7 +36,7 @@ public class RuntTestBT {
 		final String DEVICE_ID = "98D331B2B6D3";
 		final MessageTransportSpecs t_specs = new MessageTransportSpecs();
 		t_specs.deviceID = DEVICE_ID;
-		final MessageTransport transport = new DesktopMessageTransport(t_specs);
+		final MessageTransport transport = new DesktopMessageTransport(t_specs, null);
 		final String url = "btspp://" + DEVICE_ID + ":1;authenticate=false;encrypt=false;master=false";
 // final InputStream java_stream =;
 		final GasSensorMessageReaderSpecs specs = new GasSensorMessageReaderSpecs();

@@ -25,7 +25,7 @@ public class ReceiveAllSQS {
 
 		final MessageTransportSpecs specs = new MessageTransportSpecs();
 		specs.deviceID = deviceID;
-		final DesktopMessageTransport transport = new DesktopMessageTransport(specs);
+		final DesktopMessageTransport transport = new DesktopMessageTransport(specs, null);
 		while (true) {
 			try {
 				final List<GasSensorMessage> list = transport.receive();
