@@ -17,21 +17,21 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 	public AndroidBTConnectionOpener (final AndroidApplication androidLauncher, final String deviceId) {
 		this.deviceId = deviceId;
 		this.app = androidLauncher;
+		this.adaptor = androidLauncher.getAdaptor();
 
 	}
 
-	private BluetoothAdapter adaptor;
+	private final MesaBluetoothAdapter adaptor;
 
 	@Override
 	public DataInputStream open (final String url) throws IOException {
-		this.adaptor = BluetoothAdapter.getDefaultAdapter();
 		{
 // final Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 // this.app.startActivityForResult(turnOn, 0);
 			this.app.requestBT();
 		}
 
-		final Set<BluetoothDevice> pairedDevices = Collections.newSet(this.adaptor.getBondedDevices());
+		final Set<BluetoothDevice> pairedDevices = (this.adaptor.getBondedDevices());
 // pairedDevices.print("pairedDevices");
 		if (pairedDevices.size() == 0) {
 			return null;
