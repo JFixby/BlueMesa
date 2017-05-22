@@ -44,7 +44,9 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 		final List<AndroidParcelUuid> uids = Collections.newList(device.getUuids());
 		uids.print("uids");
 
-		final UUID uuid = UUID.fromString(uids.getLast().getString());
+		final String uidStr = uids.getLast().getString();
+		L.d("uidStr", uidStr);
+		final UUID uuid = UUID.fromString(uidStr);
 // L.d("uuid", uuid);
 		L.d("uuid", uuid);
 		// 01-01 05:20:18.510: I/System.out(12753): (0) 00001101-0000-1000-8000-00805f9b34fb
