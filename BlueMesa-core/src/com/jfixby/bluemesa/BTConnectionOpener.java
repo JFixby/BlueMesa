@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public interface BTConnectionOpener {
 
-	DataInputStream open (String url) throws IOException;
+	DataInputStream open () throws IOException;
+
+	String getDeviceID ();
 
 }

@@ -6,7 +6,6 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.json.Json;
-import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.aws.api.AWS;
 import com.jfixby.scarabei.aws.api.AWSCredentialsProvider;
 import com.jfixby.scarabei.aws.api.sqs.SQS;
@@ -26,8 +25,6 @@ public class DesktopMessageTransport implements MessageTransport {
 
 	private final AWSCredentialsProvider awsKeys = this.newBlueMesaAWSCredentials();
 	private final SQSClient client;
-	private final String queuURL;
-	private final String deviceID;
 	private final MessagesConsumer ep;
 
 	public DesktopMessageTransport (final MessageTransportSpecs t_specs, final MessagesConsumer ep) {
@@ -38,13 +35,7 @@ public class DesktopMessageTransport implements MessageTransport {
 
 		this.client = sqs.newClient(sqsspecs);
 
-		final SQSCreateQueueParams createQueueRequestParams = sqs.newCreateQueueParams();
-		createQueueRequestParams.setName("BlueMesa-gas-" + t_specs.deviceID);
-		this.deviceID = t_specs.deviceID;
-
-		final SQSCreateQueueResult queueCreateResult = this.client.createQueue(createQueueRequestParams);
-		this.queuURL = queueCreateResult.getQueueURL();
-		L.d("open queue", this.queuURL);
+// L.d("open queue", queuURL);
 
 		final Collection<String> currentQueues = this.client.listAllSQSUrls();
 		currentQueues.print("current queues");
@@ -68,20 +59,36 @@ public class DesktopMessageTransport implements MessageTransport {
 	@Override
 	public void send (final GasSensorMessage message) {
 		final SQS sqs = AWS.getSQS();
+
+		final SQSCreateQueueParams createQueueRequestParams = sqs.newCreateQueueParams();
+		createQueueRequestParams.setName("BlueMesa-gas-" + message.deviceID);
+
+		final SQSCreateQueueResult queueCreateResult = this.client.createQueue(createQueueRequestParams);
+		final String queuURL = queueCreateResult.getQueueURL();
+
 		final SQSSendMessageParams sendParams = sqs.newSendMessageParams();
-		sendParams.setQueueURL(this.queuURL);
+		sendParams.setQueueURL(queuURL);
 
 		final String messageText = Json.serializeToString(message).toString();
 // L.d(messageText);
 		sendParams.setBody(messageText);
 		this.client.sendMessage(sendParams);
-		this.ep.append(messageText);
+		if (this.ep != null) {
+			this.ep.append(messageText);
+		}
 	}
 
-	public List<GasSensorMessage> receive () {
+	public List<GasSensorMessage> receive (final String deviceID) {
 		final SQS sqs = AWS.getSQS();
 		final SQSReceiveMessageParams params = sqs.newReceiveMessageParams();
-		params.setQueueURL(this.queuURL);
+
+		final SQSCreateQueueParams createQueueRequestParams = sqs.newCreateQueueParams();
+		createQueueRequestParams.setName("BlueMesa-gas-" + deviceID);
+
+		final SQSCreateQueueResult queueCreateResult = this.client.createQueue(createQueueRequestParams);
+		final String queuURL = queueCreateResult.getQueueURL();
+
+		params.setQueueURL(queuURL);
 		final SQSReceiveMessageRequest request = sqs.newReceiveMessageRequest(params);
 
 		final SQSReceiveMessageResult result = this.client.receive(request);
@@ -90,13 +97,13 @@ public class DesktopMessageTransport implements MessageTransport {
 		final List<GasSensorMessage> list = Collections.newList();
 		for (final SQSMessage m : messages) {
 // m.print();
-			list.add(this.process(m));
+			list.add(this.process(m, queuURL));
 
 		}
 		return list;
 	}
 
-	private GasSensorMessage process (final SQSMessage inputMessage) {
+	private GasSensorMessage process (final SQSMessage inputMessage, final String queuURL) {
 		final String inputMessageBody = inputMessage.getBody();
 		final String inputMessageReceiptHandle = inputMessage.getReceiptHandle();
 
@@ -104,7 +111,7 @@ public class DesktopMessageTransport implements MessageTransport {
 
 		final SQS sqs = AWS.getSQS();
 		final SQSDeleteMessageParams delete = sqs.newDeleteMessageParams();
-		delete.setQueueURL(this.queuURL);
+		delete.setQueueURL(queuURL);
 		delete.setMessageReceiptHandle(inputMessageReceiptHandle);
 		final SQSDeleteMessageResult deleteResult = this.client.deleteMessage(delete);
 

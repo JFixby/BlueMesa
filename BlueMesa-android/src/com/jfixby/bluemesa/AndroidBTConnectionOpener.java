@@ -9,22 +9,22 @@ import java.util.UUID;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Set;
+import com.jfixby.scarabei.api.log.L;
 
 public class AndroidBTConnectionOpener implements BTConnectionOpener {
 	private final AndroidApplication app;
-	private final String deviceId;
 
-	public AndroidBTConnectionOpener (final AndroidApplication androidLauncher, final String deviceId) {
-		this.deviceId = deviceId;
+	public AndroidBTConnectionOpener (final AndroidApplication androidLauncher) {
 		this.app = androidLauncher;
 		this.adaptor = androidLauncher.getAdaptor();
 
 	}
 
 	private final AndroidBluetoothAdapter adaptor;
+	private String deviceId;
 
 	@Override
-	public DataInputStream open (final String url) throws IOException {
+	public DataInputStream open () throws IOException {
 		{
 // final Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 // this.app.startActivityForResult(turnOn, 0);
@@ -39,6 +39,11 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 
 		final AndroidBluetoothDevice device = pairedDevices.getLast();
 // L.d("device detected", device);
+
+		this.deviceId = device.getDeviceID().toUpperCase();
+
+		final String url = "btspp://" + this.deviceId + ":1;authenticate=false;encrypt=false;master=false";
+		L.d("BT start", url);
 
 		final List<AndroidParcelUuid> uids = Collections.newList(device.getUuids());
 // uids.print("uids");
@@ -64,6 +69,11 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 // L.d("dis", dis);
 		return dis;
 
+	}
+
+	@Override
+	public String getDeviceID () {
+		return this.deviceId;
 	}
 
 // private final UUID SERIAL_PORT = new UUID(0x1101);

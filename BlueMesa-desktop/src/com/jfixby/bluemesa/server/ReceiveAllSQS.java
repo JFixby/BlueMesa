@@ -20,15 +20,12 @@ public class ReceiveAllSQS {
 		ScarabeiDesktop.deploy();
 		AWS.installComponent(new RedAWS());
 		Json.installComponent(new GoogleGson());
-
 		final String deviceID = "98D331B2B6D3";
-
 		final MessageTransportSpecs specs = new MessageTransportSpecs();
-		specs.deviceID = deviceID;
 		final DesktopMessageTransport transport = new DesktopMessageTransport(specs, null);
 		while (true) {
 			try {
-				final List<GasSensorMessage> list = transport.receive();
+				final List<GasSensorMessage> list = transport.receive(deviceID);
 				print(list);
 			} catch (final Throwable e) {
 				L.e(e);

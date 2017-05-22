@@ -12,4 +12,6 @@ public interface AndroidBluetoothDevice {
 
 	AndroidBluetoothSocket createInsecureRfcommSocketToServiceRecord (UUID uuid) throws IOException;
 
+	String getDeviceID ();
+
 }

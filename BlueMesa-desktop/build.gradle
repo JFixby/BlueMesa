@@ -5,7 +5,7 @@ sourceCompatibility = 1.6
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-        scarabeiVersion = "1.3.3"
+        scarabeiVersion = "57b3548aa5"
 }
 
 repositories {
@@ -18,12 +18,16 @@ repositories {
 dependencies {
     compile project(":BlueMesa-core")
     compile "com.github.Scarabei.Scarabei:scarabei-api:$scarabeiVersion"
+    compile "com.github.Scarabei.Scarabei:scarabei-red:$scarabeiVersion"
+    
     compile "com.github.Scarabei.Scarabei:scarabei-api-desktop:$scarabeiVersion"
+    compile "com.github.Scarabei.Scarabei:scarabei-red-desktop:$scarabeiVersion"
+    
     compile "com.github.Scarabei.Scarabei:scarabei-aws-api:$scarabeiVersion"
     compile "com.github.Scarabei.Scarabei:scarabei-aws-red:$scarabeiVersion"
-    compile "com.github.Scarabei.Scarabei:scarabei-red:$scarabeiVersion"
+    
     compile "com.github.Scarabei.Scarabei:scarabei-gson:$scarabeiVersion"
-    compile "com.github.Scarabei.Scarabei:scarabei-red-desktop:$scarabeiVersion"
+    
 	compile "com.google.code.gson:gson:2.8.0"
 	compile 'net.sf.bluecove:bluecove:2.1.1-SNAPSHOT'
     compile "com.google.code.gson:gson:2.8.0"

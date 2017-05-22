@@ -10,9 +10,24 @@ import com.jfixby.bluemesa.BTConnectionOpener;
 
 public class DekstopBTConnectionOpener implements BTConnectionOpener {
 
+	private final String url;
+	private final String deviceID;
+
+	public DekstopBTConnectionOpener (final String DEVICE_ID) {
+
+		this.deviceID = DEVICE_ID;
+		this.url = "btspp://" + DEVICE_ID + ":1;authenticate=false;encrypt=false;master=false";
+
+	}
+
 	@Override
-	public DataInputStream open (final String url) throws IOException {
-		return Connector.openDataInputStream(url);
+	public DataInputStream open () throws IOException {
+		return Connector.openDataInputStream(this.url);
+	}
+
+	@Override
+	public String getDeviceID () {
+		return this.deviceID;
 	}
 
 }

@@ -12,19 +12,18 @@ import com.jfixby.scarabei.api.sys.Sys;
 
 public class GasSensorMessageReader {
 
-	private final String url;
 	private DataInputStream is;
-	private final String deviceID;
+	private String deviceID;
 
 	public GasSensorMessageReader (final GasSensorMessageReaderSpecs specs) {
-		this.url = specs.url;
-		this.deviceID = specs.deviceID;
+
 	}
 
-	public void open (final BTConnectionOpener opener) throws IOException {
+	public boolean open (final BTConnectionOpener opener) throws IOException {
 		Debug.checkTrue("is closed", this.is == null);
-		this.is = opener.open(this.url);
-		;
+		this.is = opener.open();
+		this.deviceID = opener.getDeviceID();
+		return this.is != null;
 
 	}
 
