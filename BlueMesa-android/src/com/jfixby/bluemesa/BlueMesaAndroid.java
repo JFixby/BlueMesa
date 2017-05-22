@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.jfixby.bluemesa.sqs.MessageTransport;
 import com.jfixby.bluemesa.sqs.MessageTransportSpecs;
+import com.jfixby.bluemesa.sqs.MessagesConsumer;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
 
@@ -19,13 +20,13 @@ public class BlueMesaAndroid {
 		this.app = app;
 	}
 
-	public void run () {
+	public void run (final MessagesConsumer ep) {
 		final Thread t = new Thread() {
 			@Override
 			public void run () {
 				while (true) {
 					try {
-						BlueMesaAndroid.this.test();
+						BlueMesaAndroid.this.test(ep);
 					} catch (final IOException e) {
 						e.printStackTrace();
 						Sys.sleep(10000);
@@ -38,7 +39,7 @@ public class BlueMesaAndroid {
 		t.start();
 	}
 
-	private void test () throws IOException {
+	private void test (final MessagesConsumer ep) throws IOException {
 
 		final String url = "btspp://" + this.deviceId + ":1;authenticate=false;encrypt=false;master=false";
 		L.d("BT start", url);
@@ -47,7 +48,7 @@ public class BlueMesaAndroid {
 		specs.deviceID = this.deviceId;
 
 		final MessageTransportSpecs t_specs = new MessageTransportSpecs();
-		final MessageTransport transport = new AnroidMessageTransport(t_specs);
+		final MessageTransport transport = new AnroidMessageTransport(t_specs, ep);
 
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
 		reader.open(new AndroidBTConnectionOpener(this.app, this.deviceId));
