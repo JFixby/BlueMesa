@@ -13,9 +13,11 @@ public class GasSensorMessageReader {
 
 	private final String url;
 	private DataInputStream is;
+	private final String deviceID;
 
 	public GasSensorMessageReader (final GasSensorMessageReaderSpecs specs) {
 		this.url = specs.url;
+		this.deviceID = specs.deviceID;
 	}
 
 	public void open (final BTConnectionOpener opener) throws IOException {
@@ -32,6 +34,7 @@ public class GasSensorMessageReader {
 
 	public GasSensorMessage read () throws IOException, GasSensorMessageReaderException {
 		final GasSensorMessage msg = new GasSensorMessage();
+		msg.deviceID = this.deviceID;
 		String b = "";
 		boolean valveOpen = false;
 		final List<Byte> bytes = Collections.newList();

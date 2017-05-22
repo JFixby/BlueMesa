@@ -52,6 +52,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidCompon
 		L.d("BT start", url);
 		final GasSensorMessageReaderSpecs specs = new GasSensorMessageReaderSpecs();
 		specs.url = (url);
+		specs.deviceID = DEVICE_ID;
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
 		reader.open(new AndroidBTConnectionOpener(this, DEVICE_ID));
 

@@ -9,5 +9,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-gson"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-red"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/scarabei-red-desktop"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BlueMesa-core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -16,7 +16,7 @@ import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.aws.api.AWS;
 import com.jfixby.scarabei.gson.GoogleGson;
 
-public class TestBT {
+public class RuntTestBT {
 
 	public static void main (final String[] args) throws IOException {
 		ScarabeiDesktop.deploy();
@@ -40,6 +40,7 @@ public class TestBT {
 // final InputStream java_stream =;
 		final GasSensorMessageReaderSpecs specs = new GasSensorMessageReaderSpecs();
 		specs.url = (url);
+		specs.deviceID = DEVICE_ID;
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
 		reader.open(new DekstopBTConnectionOpener());
 
