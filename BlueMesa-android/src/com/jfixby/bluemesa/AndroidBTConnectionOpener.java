@@ -9,6 +9,7 @@ import java.util.UUID;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.collections.Set;
+import com.jfixby.scarabei.api.log.L;
 
 public class AndroidBTConnectionOpener implements BTConnectionOpener {
 	private final AndroidApplication app;
@@ -41,9 +42,11 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 // L.d("device detected", device);
 
 		final List<AndroidParcelUuid> uids = Collections.newList(device.getUuids());
-// uids.print("uids");
+		uids.print("uids");
 
-		final UUID uuid = UUID.fromString(uids.getLast().toString());
+		final UUID uuid = UUID.fromString(uids.getLast().getString());
+// L.d("uuid", uuid);
+		L.d("uuid", uuid);
 		// 01-01 05:20:18.510: I/System.out(12753): (0) 00001101-0000-1000-8000-00805f9b34fb
 
 		// Sys.exit();
