@@ -8,6 +8,7 @@ import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.debug.Debug;
 import com.jfixby.scarabei.api.math.IntegerMath;
+import com.jfixby.scarabei.api.sys.Sys;
 
 public class GasSensorMessageReader {
 
@@ -71,7 +72,7 @@ public class GasSensorMessageReader {
 		}
 
 		msg.data = this.decode(data);
-
+		msg.timestamp = Sys.SystemTime().currentTimeMillis();
 // L.d("data read " + b.length(), b);
 // L.d(" bytes", data);
 		return msg;
