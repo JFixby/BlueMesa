@@ -6,6 +6,8 @@ import java.io.IOException;
 import com.jfixby.bluemesa.sqs.MessageTransport;
 import com.jfixby.bluemesa.sqs.MessageTransportSpecs;
 import com.jfixby.bluemesa.sqs.MessagesConsumer;
+import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
 import com.jfixby.scarabei.api.sys.Sys;
 
 public class BlueMesaAndroid {
@@ -47,7 +49,7 @@ public class BlueMesaAndroid {
 
 		while (true) {
 			if (!success) {
-				ep.append("No paired device detected");
+				ep.append("No paired device detected", MESSAGE_MARKER.NORMAL);
 				Sys.sleep(100000);
 				Sys.exit();
 				break;
@@ -58,7 +60,8 @@ public class BlueMesaAndroid {
 				message.print();
 				transport.send(message);
 			} catch (final GasSensorMessageReaderException e) {
-				e.printStackTrace();
+// e.printStackTrace();
+				L.e(e);
 			}
 		}
 	}
