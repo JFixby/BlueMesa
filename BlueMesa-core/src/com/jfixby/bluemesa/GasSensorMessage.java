@@ -3,7 +3,6 @@ package com.jfixby.bluemesa;
 
 import java.util.Date;
 
-import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
 
 public class GasSensorMessage {
@@ -17,7 +16,8 @@ public class GasSensorMessage {
 		L.d("---GasSensorMessage[" + this.globalCounter + "]-----------");
 		L.d("deviceID", this.deviceID);
 		L.d("timestamp", new Date(this.timestamp));
-		L.d("data", Json.serializeToString(this.data));
+		this.data.print();
+// L.d("data", Json.serializeToString(this.data));
 		L.d();
 	}
 

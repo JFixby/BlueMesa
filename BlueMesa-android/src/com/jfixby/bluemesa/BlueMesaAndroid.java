@@ -49,7 +49,7 @@ public class BlueMesaAndroid {
 
 		while (true) {
 			if (!success) {
-				ep.append("No paired device detected", MESSAGE_MARKER.NORMAL);
+				L.e("No paired device detected", MESSAGE_MARKER.NORMAL);
 				Sys.sleep(100000);
 				Sys.exit();
 				break;

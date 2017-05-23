@@ -8,16 +8,36 @@ sourceCompatibility = 1.6
 repositories {
         	 maven { url 'https://jitpack.io' }
         	 mavenCentral()
+        	 flatDir {dirs 'libs'}
 }
 
 ext {
-        scarabeiVersion = "57b3548aa5"
+        gdxVersion = '1.9.6'
+        scarabeiVersion = "4176283c2a"
 }
 
 dependencies {
     compile project(":BlueMesa-core")
     compile "com.github.Scarabei.Scarabei:scarabei-api:$scarabeiVersion"
-	compile "com.google.code.gson:gson:2.8.0"
+    compile "com.github.Scarabei.Scarabei:scarabei-red:$scarabeiVersion"
+    compile "com.github.Scarabei.Scarabei:scarabei-aws-api:$scarabeiVersion"
+        
+    compile "com.github.Scarabei.Scarabei:scarabei-gson:$scarabeiVersion"
+    
+    compile "com.github.Scarabei.Scarabei:scarabei-api-android:$scarabeiVersion"
+    compile "com.github.Scarabei.Scarabei:scarabei-red-android:$scarabeiVersion"
+            
+    compile name: 'android-4.4'
+    compile name: 'support-v4-19.0.1'
+       
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+	
+	compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+    //natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+    //natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+    //natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+    //natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+    //natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
        
 }
 

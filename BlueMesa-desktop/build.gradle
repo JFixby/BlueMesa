@@ -1,17 +1,24 @@
 apply plugin: "java"
 apply plugin: "maven"
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-        scarabeiVersion = "57b3548aa5"
+        scarabeiVersion = "9f1abb9ff5"
+        gdxVersion = '1.9.6'
 }
 
 repositories {
-        	 maven { url 'https://jitpack.io' }
-        	 mavenCentral()
-        	 maven { url 'http://www.pyx4me.com/maven2-snapshot'  }// bluecove snapshots
+     mavenLocal()
+     mavenCentral()
+     maven { url 'https://jitpack.io' }
+     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+     maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+     maven { url 'http://www.pyx4me.com/maven2-snapshot'  }// bluecove snapshots
+     maven { url 'https://jitpack.io' }
+     mavenCentral()
+     maven { url 'http://www.pyx4me.com/maven2-snapshot'  }// bluecove snapshots
         	  
 }
 
@@ -27,6 +34,10 @@ dependencies {
     compile "com.github.Scarabei.Scarabei:scarabei-aws-red:$scarabeiVersion"
     
     compile "com.github.Scarabei.Scarabei:scarabei-gson:$scarabeiVersion"
+    
+    compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        
     
 	compile "com.google.code.gson:gson:2.8.0"
 	compile 'net.sf.bluecove:bluecove:2.1.1-SNAPSHOT'

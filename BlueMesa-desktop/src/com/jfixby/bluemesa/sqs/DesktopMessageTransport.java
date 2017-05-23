@@ -6,7 +6,6 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.json.Json;
-import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
 import com.jfixby.scarabei.aws.api.AWS;
 import com.jfixby.scarabei.aws.api.AWSCredentialsProvider;
 import com.jfixby.scarabei.aws.api.sqs.SQS;
@@ -71,12 +70,9 @@ public class DesktopMessageTransport implements MessageTransport {
 		sendParams.setQueueURL(queuURL);
 
 		final String messageText = Json.serializeToString(message).toString();
-// L.d(messageText);
 		sendParams.setBody(messageText);
+		message.print();
 		this.client.sendMessage(sendParams);
-		if (this.ep != null) {
-			this.ep.append(messageText, MESSAGE_MARKER.NORMAL);
-		}
 	}
 
 	public List<GasSensorMessage> receive (final String deviceID) {
