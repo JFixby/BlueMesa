@@ -1,5 +1,5 @@
 
-package com.jfixby.bluemesa.gdx;
+package com.jfixby.bluemesa;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.jfixby.bluemesa.LogMessage;
-import com.jfixby.bluemesa.ScreenLogger;
 import com.jfixby.bluemesa.sqs.MessagesConsumer;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;

@@ -3,7 +3,6 @@ package com.jfixby.bluemesa;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.jfixby.bluemesa.gdx.EntryPoint;
 import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;

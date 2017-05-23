@@ -5,10 +5,10 @@ import java.io.IOException;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.jfixby.bluemesa.EntryPoint;
 import com.jfixby.bluemesa.GasSensorMessage;
 import com.jfixby.bluemesa.GasSensorMessageReader;
 import com.jfixby.bluemesa.GasSensorMessageReaderSpecs;
-import com.jfixby.bluemesa.gdx.EntryPoint;
 import com.jfixby.bluemesa.sqs.DesktopMessageTransport;
 import com.jfixby.bluemesa.sqs.MessageTransport;
 import com.jfixby.bluemesa.sqs.MessageTransportSpecs;
