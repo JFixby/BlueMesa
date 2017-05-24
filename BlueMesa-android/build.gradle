@@ -89,7 +89,7 @@ dependencies {
 	
 	compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
 
-    compile fileTree(dir: 'android-api', include: ['*.jar'])
+    //compile fileTree(dir: 'android-api', include: ['*.jar'])
        
 }
 
