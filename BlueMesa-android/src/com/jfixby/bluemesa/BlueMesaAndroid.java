@@ -7,8 +7,9 @@ import com.jfixby.bluemesa.sqs.MessageTransport;
 import com.jfixby.bluemesa.sqs.MessageTransportSpecs;
 import com.jfixby.bluemesa.sqs.MessagesConsumer;
 import com.jfixby.scarabei.api.log.L;
-import com.jfixby.scarabei.api.log.MESSAGE_MARKER;
 import com.jfixby.scarabei.api.sys.Sys;
+
+import android.view.View;
 
 public class BlueMesaAndroid {
 
@@ -16,6 +17,8 @@ public class BlueMesaAndroid {
 
 	public BlueMesaAndroid (final AndroidApplication app) {
 		this.app = app;
+
+		L.d("View.DRAWING_CACHE_QUALITY_AUTO", View.DRAWING_CACHE_QUALITY_AUTO);
 	}
 
 	public void run (final MessagesConsumer ep) {
@@ -26,7 +29,7 @@ public class BlueMesaAndroid {
 					try {
 						BlueMesaAndroid.this.test(ep);
 					} catch (final IOException e) {
-						e.printStackTrace();
+						L.e(e);
 						Sys.sleep(10000);
 					}
 				}
@@ -43,13 +46,14 @@ public class BlueMesaAndroid {
 
 		final MessageTransportSpecs t_specs = new MessageTransportSpecs();
 		final MessageTransport transport = new AnroidMessageTransport(t_specs, ep);
-
+		Sys.sleep(20);
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
+		L.d("connecting BT");
 		final boolean success = reader.open(new AndroidBTConnectionOpener(this.app));
 
 		while (true) {
 			if (!success) {
-				L.e("No paired device detected", MESSAGE_MARKER.NORMAL);
+				L.e("No paired device detected");
 				Sys.sleep(100000);
 				Sys.exit();
 				break;

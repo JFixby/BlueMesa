@@ -32,14 +32,14 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 		}
 
 		final Set<AndroidBluetoothDevice> pairedDevices = (this.adaptor.getBondedDevices());
-// pairedDevices.print("pairedDevices");
+		pairedDevices.print("pairedDevices");
 		if (pairedDevices.size() == 0) {
 			L.d("Failed to find devices");
 			return null;
 		}
 
 		final AndroidBluetoothDevice device = pairedDevices.getLast();
-// L.d("device detected", device);
+		L.d("device detected", device);
 
 		this.deviceId = device.getDeviceID().toUpperCase();
 
@@ -47,12 +47,12 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 		L.d("BT start", url);
 
 		final List<AndroidParcelUuid> uids = Collections.newList(device.getUuids());
-// uids.print("uids");
+		uids.print("uids");
 
 		final String uidStr = uids.getLast().getString();
-// L.d("uidStr", uidStr);
+		L.d("uidStr", uidStr);
 		final UUID uuid = UUID.fromString(uidStr);
-// L.d("uuid", uuid);
+		L.d("uuid", uuid);
 // L.d("uuid", uuid);
 // 01-01 05:20:18.510: I/System.out(12753): (0) 00001101-0000-1000-8000-00805f9b34fb
 
@@ -61,13 +61,13 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 
 		final AndroidBluetoothSocket socket = device.createInsecureRfcommSocketToServiceRecord(uuid);
 		socket.connect();
-// L.d("socket", socket);
+		L.d("socket", socket);
 // device.
 
 		final InputStream is = socket.getInputStream();
-// L.d("is", is);
+		L.d("is", is);
 		final DataInputStream dis = new DataInputStream(is);
-// L.d("dis", dis);
+		L.d("dis", dis);
 		return dis;
 
 	}
