@@ -7,4 +7,6 @@ public interface MessagesConsumer {
 
 	void append (String messageText, MESSAGE_MARKER mode);
 
+	boolean isReady ();
+
 }

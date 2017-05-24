@@ -19,6 +19,7 @@ public class EntryPoint extends ApplicationAdapter implements MessagesConsumer {
 	private BitmapFont font;
 	// Texture img;
 	private List<LogMessage> stack;
+	private boolean ready;
 
 	@Override
 	public void create () {
@@ -32,7 +33,7 @@ public class EntryPoint extends ApplicationAdapter implements MessagesConsumer {
 
 // L.in
 // this.img = new Texture("badlogic.jpg");
-
+		this.ready = true;
 	}
 
 	@Override
@@ -84,5 +85,10 @@ public class EntryPoint extends ApplicationAdapter implements MessagesConsumer {
 		}
 		;
 // this.stack.reverse();
+	}
+
+	@Override
+	public boolean isReady () {
+		return this.ready;
 	}
 }

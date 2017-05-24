@@ -40,7 +40,10 @@ public class BlueMesaAndroid {
 
 	private void test (final MessagesConsumer ep) throws IOException {
 		L.d("connecting BT");
-		Sys.sleep(2000);
+		while (!ep.isReady()) {
+			Sys.sleep(100);
+		}
+
 		final GasSensorMessageReaderSpecs specs = new GasSensorMessageReaderSpecs();
 
 		final MessageTransportSpecs t_specs = new MessageTransportSpecs();
@@ -51,6 +54,7 @@ public class BlueMesaAndroid {
 		final boolean success = reader.open(opener);
 
 		while (true) {
+
 			if (!success) {
 				L.e("No paired device detected");
 				Sys.sleep(100000);
