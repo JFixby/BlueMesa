@@ -9,8 +9,6 @@ import com.jfixby.bluemesa.sqs.MessagesConsumer;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.sys.Sys;
 
-import android.view.View;
-
 public class BlueMesaAndroid {
 
 	private final AndroidApplication app;
@@ -18,7 +16,7 @@ public class BlueMesaAndroid {
 	public BlueMesaAndroid (final AndroidApplication app) {
 		this.app = app;
 
-		L.d("View.DRAWING_CACHE_QUALITY_AUTO", View.DRAWING_CACHE_QUALITY_AUTO);
+// L.d("View.DRAWING_CACHE_QUALITY_AUTO", View.DRAWING_CACHE_QUALITY_AUTO);
 	}
 
 	public void run (final MessagesConsumer ep) {
