@@ -11,7 +11,7 @@ repositories {
 }
 
 ext {
-        scarabeiVersion = "9f1abb9ff5"
+        scarabeiVersion = "c4ec026b94"
         gdxVersion = '1.9.6'
 }
 
