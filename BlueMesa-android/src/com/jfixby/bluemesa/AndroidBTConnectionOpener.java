@@ -16,6 +16,7 @@ public class AndroidBTConnectionOpener implements BTConnectionOpener {
 
 	public AndroidBTConnectionOpener (final AndroidApplication androidLauncher) {
 		this.app = androidLauncher;
+
 		this.adaptor = androidLauncher.getAdaptor();
 
 	}
