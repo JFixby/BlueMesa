@@ -39,6 +39,7 @@ dependencies {
     compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
     compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         
+   
     
 	compile "com.google.code.gson:gson:2.8.0"
 	compile 'net.sf.bluecove:bluecove:2.1.1-SNAPSHOT'
