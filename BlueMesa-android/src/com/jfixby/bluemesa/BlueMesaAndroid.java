@@ -3,6 +3,7 @@ package com.jfixby.bluemesa;
 
 import java.io.IOException;
 
+import com.jfixby.bluemesa.sqs.BlureMesaMessageTransport;
 import com.jfixby.bluemesa.sqs.MessageTransport;
 import com.jfixby.bluemesa.sqs.MessageTransportSpecs;
 import com.jfixby.bluemesa.sqs.MessagesConsumer;
@@ -47,7 +48,7 @@ public class BlueMesaAndroid {
 		final GasSensorMessageReaderSpecs specs = new GasSensorMessageReaderSpecs();
 
 		final MessageTransportSpecs t_specs = new MessageTransportSpecs();
-		final MessageTransport transport = new AnroidMessageTransport(t_specs, ep);
+		final MessageTransport transport = new BlureMesaMessageTransport(t_specs, ep);
 
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
 		final AndroidBTConnectionOpener opener = new AndroidBTConnectionOpener(this.app);

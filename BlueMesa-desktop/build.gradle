@@ -5,7 +5,7 @@ sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-        scarabeiVersion = "c4ec026b94"
+        scarabeiVersion = "6cdcc06c39"
         gdxVersion = '1.9.6'
 }
 
