@@ -40,11 +40,12 @@ public class BlueMesaAndroid {
 
 	private void test (final MessagesConsumer ep) throws IOException {
 		L.d("connecting BT");
+		Sys.sleep(2000);
 		final GasSensorMessageReaderSpecs specs = new GasSensorMessageReaderSpecs();
 
 		final MessageTransportSpecs t_specs = new MessageTransportSpecs();
 		final MessageTransport transport = new AnroidMessageTransport(t_specs, ep);
-		Sys.sleep(20);
+
 		final GasSensorMessageReader reader = new GasSensorMessageReader(specs);
 		final AndroidBTConnectionOpener opener = new AndroidBTConnectionOpener(this.app);
 		final boolean success = reader.open(opener);
