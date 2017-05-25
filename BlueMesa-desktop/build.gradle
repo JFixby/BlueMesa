@@ -4,10 +4,7 @@ apply plugin: "maven"
 sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-ext {
-        scarabeiVersion = "6cdcc06c39"
-        gdxVersion = '1.9.6'
-}
+
 
 repositories {
      mavenLocal()

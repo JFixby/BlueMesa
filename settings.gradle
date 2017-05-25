@@ -2,6 +2,7 @@ include 'BlueMesa-android'
 include 'BlueMesa-core'
 include 'BlueMesa-desktop'
 include 'BlueMesa-server'
+//include 'BlueMesa-server'
 
 
 

@@ -10,10 +10,7 @@ repositories {
         	 mavenCentral()
 }
 
-ext {
-        scarabeiVersion = "6cdcc06c39"
-        gdxVersion = '1.9.6'
-}
+
 
 dependencies {
     compile "com.github.Scarabei.Scarabei:scarabei-api:$scarabeiVersion"
