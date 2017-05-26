@@ -6,6 +6,7 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.List;
 import com.jfixby.scarabei.api.json.Json;
+import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.aws.api.AWSCredentialsProvider;
 import com.jfixby.scarabei.aws.api.sqs.SQS;
 import com.jfixby.scarabei.aws.api.sqs.SQSClienSpecs;
@@ -56,13 +57,24 @@ public class BlureMesaMessageTransport implements MessageTransport {
 		return null;
 	}
 
+	public static String removeNonDigits (final String str) {
+		if (str == null || str.length() == 0) {
+			return "";
+		}
+		return str.replaceAll("[^0-9]+", "");
+	}
+
 	@Override
 	public void send (final GasSensorMessage message) {
 		final SQSComponent sqs = SQS.invoke();
 
 		final SQSCreateQueueParams createQueueRequestParams = sqs.newCreateQueueParams();
-		createQueueRequestParams.setName("BlueMesa-gas-" + message.deviceID);
 
+		final String queueName = "BlueMesa-gas-" + removeNonDigits(message.deviceID);
+		;
+		createQueueRequestParams.setName(queueName);
+
+		L.d("create queue", queueName);
 		final SQSCreateQueueResult queueCreateResult = this.client.createQueue(createQueueRequestParams);
 		final String queuURL = queueCreateResult.getQueueURL();
 
