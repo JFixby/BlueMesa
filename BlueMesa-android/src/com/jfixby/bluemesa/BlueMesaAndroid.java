@@ -27,7 +27,8 @@ public class BlueMesaAndroid {
 				while (true) {
 					try {
 						BlueMesaAndroid.this.test(ep);
-					} catch (final IOException e) {
+					} catch (final Throwable e) {
+						e.printStackTrace();
 						L.e(e);
 						Sys.sleep(10000);
 					}
