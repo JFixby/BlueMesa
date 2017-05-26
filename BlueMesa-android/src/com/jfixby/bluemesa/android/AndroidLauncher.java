@@ -9,6 +9,8 @@ import com.jfixby.bluemesa.BlueMesaAndroid;
 import com.jfixby.scarabei.android.api.AndroidComponent;
 import com.jfixby.scarabei.api.json.Json;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.aws.android.sqs.AndroidSQS;
+import com.jfixby.scarabei.aws.api.sqs.SQS;
 import com.jfixby.scarabei.gson.GoogleGson;
 import com.jfixby.scarabei.red.android.ScarabeiAndroid;
 
@@ -29,6 +31,7 @@ public class AndroidLauncher extends AndroidApplication implements com.jfixby.bl
 
 		ScarabeiAndroid.deploy(x);
 		Json.installComponent(new GoogleGson());
+		SQS.installComponent(new AndroidSQS());
 		L.d("ScarabeiAndroid deployed!");
 		final BlueMesaAndroid bm = new BlueMesaAndroid(this);
 
