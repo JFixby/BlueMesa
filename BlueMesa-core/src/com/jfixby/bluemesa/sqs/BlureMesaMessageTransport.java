@@ -70,8 +70,8 @@ public class BlureMesaMessageTransport implements MessageTransport {
 
 		final SQSCreateQueueParams createQueueRequestParams = sqs.newCreateQueueParams();
 
-		final String queueName = "BlueMesa-gas-" + removeNonDigits(message.deviceID);
-		;
+		final String queueName = "BlueMesa-gas-" + (message.deviceID).replaceAll(":", "");
+
 		createQueueRequestParams.setName(queueName);
 
 		L.d("create queue", queueName);
