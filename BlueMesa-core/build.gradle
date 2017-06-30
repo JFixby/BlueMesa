@@ -17,6 +17,10 @@ dependencies {
     compile "com.github.Scarabei.Scarabei:scarabei-red:$scarabeiVersion"
     compile "com.github.Scarabei.Scarabei:scarabei-aws-api:$scarabeiVersion"
     compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    
+    
+    
+   
 }
 
 sourceSets {
