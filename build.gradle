@@ -11,7 +11,7 @@ buildscript {
 }
 
 ext {
-        scarabeiVersion = "60d1f21f54"
+        scarabeiVersion = "1.5.1"
         gdxVersion = '1.9.6'
 }
 
